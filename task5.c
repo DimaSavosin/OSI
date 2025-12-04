@@ -2,25 +2,17 @@
 #include <dirent.h>
 #include <errno.h>
 
-int main(int argc, char *argv[])
+void print_directory(const char *path)
 {
-    const char *path;
     DIR *dp;
     struct dirent *entry;
-
-
-    if (argc < 2) {
-        path = ".";
-    } else {
-        path = argv[1];
-    }
 
     printf("Directory: %s\n", path);
 
     dp = opendir(path);
     if (dp == NULL) {
         perror("Error opening directory");
-        return 1;
+        return;
     }
 
     errno = 0;
@@ -30,13 +22,23 @@ int main(int argc, char *argv[])
 
     if (errno != 0) {
         perror("Error reading directory");
-        closedir(dp);
-        return 1;
+
     }
 
     if (closedir(dp) == -1) {
         perror("Error closing directory");
-        return 1;
+    }
+
+    printf("\n"); 
+}
+
+int main(int argc, char *argv[])
+{
+   
+    print_directory(".");
+
+    if (argc >= 2) {
+        print_directory(argv[1]);
     }
 
     return 0;
