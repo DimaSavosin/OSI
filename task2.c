@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     int ch;
 
     if (argc < 2) {
-        fprintf(stderr, "Error: please specify a file name.\n");
+        printf("Error: not enough arguments.\n");
         return 1;
     }
 
