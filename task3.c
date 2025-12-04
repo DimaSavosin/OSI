@@ -5,12 +5,13 @@ int main(int argc, char *argv[])
 {
     FILE *fp;
     int ch;
-    int lines_per_page = atoi(argv[2]);
     int current_lines = 0;
     
-    if (args < 3) { 
+    if (argc < 3) { 
         printf("Error: not enough arguments.\n");
         return 1;
+    }   
+    int lines_per_page = atoi(argv[2]);
 
     fp = fopen(argv[1], "r");
     if (fp == NULL) {
@@ -21,7 +22,7 @@ int main(int argc, char *argv[])
     while ((ch = fgetc(fp)) != EOF) {
 
         if (fputc(ch, stdout) == EOF) {
-            perror("Error writing to stdout")
+            perror("Error writing to stdout");
             fclose(fp);
             return 1;
         }
